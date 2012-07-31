@@ -1,5 +1,5 @@
 module Refinery
-  module PageImages
+  module PageResources
     module Extension
       def has_many_page_resources
         has_many :resource_pages, :as => :page, :order => 'position ASC'
