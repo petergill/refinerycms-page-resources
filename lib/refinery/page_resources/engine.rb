@@ -34,8 +34,8 @@ module Refinery
         end
 
         if defined?(Refinery::Blog::Tab)
-          Refinery::Blog::.register do |tab|
-            register tabTab
+          Refinery::Blog::Tab.register do |tab|
+            register tab
           end
         end
 
