@@ -78,13 +78,13 @@ reset_functionality = function() {
 
 resource_added = function(resource) {
   new_list_item = (current_list_item = $('li.empty')).clone();
-  image_id = $(image).attr('id').replace('image_', '');
-  current_list_item.find('input:hidden:first').val(image_id);
+  resource_id = $(resource).attr('id').replace('resource_', '');
+  current_list_item.find('input:hidden:first').val(resource_id);
 
   $("<img />").attr({
-    title: $(image).attr('title')
-    , alt: $(image).attr('alt')
-    , src: $(image).attr('data-grid') // use 'grid' size that is built into Refinery CMS (135x135#c).
+    title: $(resource).attr('title')
+    , alt: $(resource).attr('alt')
+    , src: $(resource).attr('data-grid') // use 'grid' size that is built into Refinery CMS (135x135#c).
   }).appendTo(current_list_item);
 
   current_list_item.attr('id', 'resource_' + resource_id).removeClass('empty');
