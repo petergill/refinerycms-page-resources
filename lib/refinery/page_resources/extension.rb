@@ -45,11 +45,14 @@ module Refinery
 
         include Refinery::PageResources::Extension::InstanceMethods
 
+        attr_accessible :resources_attributes
+
+
       end
 
       module InstanceMethods
 
-        def resource_page_id_for_image_index(index)
+        def resource_page_id_for_resource_index(index)
           self.resource_pages[index].try(:id)
         end
       end
