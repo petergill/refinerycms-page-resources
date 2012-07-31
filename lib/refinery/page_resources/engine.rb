@@ -9,7 +9,7 @@ module Refinery
 
       def self.register(tab)
         tab.name = "resources"
-        tab.partial = "/refinery/admin/pages/tabs/images"
+        tab.partial = "/refinery/admin/pages/tabs/resources"
       end
 
       initializer "register refinery_page_resources plugin" do
@@ -24,7 +24,7 @@ module Refinery
         Refinery::Page.send :has_many_page_resources
         Refinery::Blog::Post.send :has_many_page_resources if defined?(::Refinery::Blog)
         Refinery::Resource.module_eval do
-          has_many :page_resources, :dependent => :destroy
+          has_many :resource_pages, :dependent => :destroy
         end
       end
 

@@ -1,9 +1,9 @@
 require 'refinerycms-core'
 
 module Refinery
-  autoload :PageImagesGenerator, 'generators/refinery/page_images_generator'
+  autoload :PageResourcesGenerator, 'generators/refinery/page_resources_generator'
 
-  module PageImages
+  module PageResources
 
     class << self
       def root
@@ -15,8 +15,8 @@ module Refinery
       end
     end
 
-    require 'refinery/page_images/configuration'
-    require 'refinery/page_images/engine'
-    require 'refinery/page_images/extension'
+    # require 'refinery/page_resources/configuration'
+    require 'refinery/page_resources/engine'
+    require 'refinery/page_resources/extension'
   end
 end

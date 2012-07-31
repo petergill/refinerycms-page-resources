@@ -1,5 +1,5 @@
 module Refinery
-  class PageResource < Refinery::Core::BaseModel
+  class ResourcePage < Refinery::Core::BaseModel
 
     belongs_to :resource
     belongs_to :page, :polymorphic => true

@@ -1,66 +1,60 @@
 module Refinery
   module PageImages
     module Extension
-      def has_many_page_images
-        has_many :image_pages, :as => :page, :order => 'position ASC'
-        has_many :images, :through => :image_pages, :order => 'position ASC'
+      def has_many_page_resources
+        has_many :resource_pages, :as => :page, :order => 'position ASC'
+        has_many :resources, :through => :resource_pages, :order => 'position ASC'
         # accepts_nested_attributes_for MUST come before def images_attributes=
         # this is because images_attributes= overrides accepts_nested_attributes_for.
 
-        accepts_nested_attributes_for :images, :allow_destroy => false
+        accepts_nested_attributes_for :resources, :allow_destroy => false
 
         # need to do it this way because of the way accepts_nested_attributes_for
         # deletes an already defined images_attributes
         module_eval do
-          def images_attributes=(data)
-            ids_to_keep = data.map{|i, d| d['image_page_id']}.compact
+          def resources_attributes=(data)
+            ids_to_keep = data.map{|i, d| d['resource_page_id']}.compact
 
-            image_pages_to_delete = if ids_to_keep.empty?
-              self.image_pages
+            resource_pages_to_delete = if ids_to_keep.empty?
+              self.resource_pages
             else
-              self.image_pages.where(
-                Refinery::ImagePage.arel_table[:id].not_in(ids_to_keep)
+              self.resource_pages.where(
+                Refinery::ResourcePage.arel_table[:id].not_in(ids_to_keep)
               )
             end
 
-            image_pages_to_delete.destroy_all
+            resource_pages_to_delete.destroy_all
 
-            data.each do |i, image_data|
-              image_page_id, image_id, caption =
-                image_data.values_at('image_page_id', 'id', 'caption')
+            data.each do |i, resource_data|
+              resource_page_id, resource_id =
+                resource_data.values_at('resource_page_id', 'id')
 
-              next if image_id.blank?
+              next if resource_id.blank?
 
-              image_page = if image_page_id.present?
-                self.image_pages.find(image_page_id)
+              resource_page = if resource_page_id.present?
+                self.resource_pages.find(resource_page_id)
               else
-                self.image_pages.build(:image_id => image_id)
+                self.resource_pages.build(:resource_id => resource_id)
               end
 
-              image_page.position = i
-              image_page.caption = caption if Refinery::PageImages.captions
-              image_page.save
+              resource_page.position = i
+              resource_page.save
             end
           end
         end
 
-        include Refinery::PageImages::Extension::InstanceMethods
+        include Refinery::PageResources::Extension::InstanceMethods
 
-        attr_accessible :images_attributes
       end
 
       module InstanceMethods
 
-        def caption_for_image_index(index)
-          self.image_pages[index].try(:caption).presence || ""
-        end
-
-        def image_page_id_for_image_index(index)
-          self.image_pages[index].try(:id)
+        def resource_page_id_for_image_index(index)
+          self.resource_pages[index].try(:id)
         end
       end
     end
   end
 end
 
-ActiveRecord::Base.send(:extend, Refinery::PageImages::Extension)
+ActiveRecord::Base.send(:extend, Refinery::PageResources::Extension)
