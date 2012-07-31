@@ -15,7 +15,7 @@ module Refinery
       end
     end
 
-    # require 'refinery/page_resources/configuration'
+    require 'refinery/page_resources/configuration'
     require 'refinery/page_resources/engine'
     require 'refinery/page_resources/extension'
   end
