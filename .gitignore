@@ -1,2 +1,5 @@
 Gemfile.lock
 spec/dummy/
+
+/app/assets/javascripts/.DS_Store
+.DS_Store

@@ -12,5 +12,5 @@ en:
     admin:
       pages:
         tabs:
-          images_bar:
-            add: Add Resource
+          resources_bar:
+            add: Add File
