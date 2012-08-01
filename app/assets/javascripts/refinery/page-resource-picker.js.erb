@@ -78,7 +78,7 @@ resource_added = function(resource, e) {
   
   current_resource_list_item.attr('id', 'resource_' + resource_id).removeClass('page_resource_empty');
 
-  $("p").text($(resource).attr('href')).appendTo(current_resource_list_item);
+  $("p").text($(resource).attr('html')).appendTo(current_resource_list_item);
 
   new_resource_list_item.appendTo($('#page_resources'));
   // debugger
