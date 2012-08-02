@@ -28,10 +28,12 @@ $(document).ready(function(){
     $(this).attr('data-old-id', $(this).attr('id'));
     $(this).attr('name', 'ignore_me_' + index);
     $(this).attr('id', 'ignore_me_' + index);
+
+    $(this).parents('li').first().append(hidden);
   });
 
   reset_resource_functionality();
-
+  
   $('#custom_resources_tab a').text("Files");
 });
 
