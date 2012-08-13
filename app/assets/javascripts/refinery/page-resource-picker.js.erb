@@ -1,7 +1,7 @@
-$(document).ready(function(){
+$(document).ready(function () {
   
-  $('#custom_resources_tab a').click(function(){
-    if (!(picker = $('#page_resource_picker')).data('size-applied')){
+  $('#custom_resources_tab a').click(function () {
+    if (!(picker = $('#page_resource_picker')).data('size-applied')) {
       wym_box = $('.page_part:first .wym_box');
       iframe = $('.page_part:first iframe');
       picker.css({
@@ -17,13 +17,12 @@ $(document).ready(function(){
         , padding: '0px 10px 0px 10px'
       });
     }
-    // debugger
   });
 
   // Webkit browsers don't like the textarea being moved around the DOM,
   // they ignore the new contents. This is fixed below by adding a hidden
   // field that stays in place.
-  $('#content #page_resources li textarea:hidden').each(function(index) {
+  $('#content #page_resources li textarea:hidden').each(function (index) {
     var old_resource_name = $(this).attr('name');
     $(this).attr('data-old-id', $(this).attr('id'));
     $(this).attr('name', 'ignore_me_' + index);
@@ -33,12 +32,10 @@ $(document).ready(function(){
   });
 
   reset_resource_functionality();
-  
-  $('#custom_resources_tab a').text("Files");
 });
 
-reset_resource_functionality = function() {
-  WYMeditor.onload_functions.push(function(){
+reset_resource_functionality = function () {
+  WYMeditor.onload_functions.push(function () {
     $('.wym_box').css({'width':null});
   });
 
@@ -47,10 +44,10 @@ reset_resource_functionality = function() {
     , 'placeholder': 'placeholder'
     , 'cursor': 'drag'
     , 'items': 'li'
-    , stop: reindex_resources
+    , 'stop': reindex_resources
   });
 
-  $('#content #page_resources li:not(.page_resource_empty)').live('hover', function(e) {
+  $('#content #page_resources li:not(.page_resource_empty)').live('hover', function (e) {
     if (e.type == 'mouseenter' || e.type == 'mouseover') {
       if ((resource_actions = $(this).find('.resource_actions')).length == 0) {
         resource_actions = $("<div class='resource_actions'></div>");
@@ -73,23 +70,26 @@ reset_resource_functionality = function() {
   reindex_resources();
 }
 
-resource_added = function(resource, e) {
+resource_added = function (resource, e) {
   new_resource_list_item = (current_resource_list_item = $('li.page_resource_empty')).clone();
+
   resource_id = $(resource).attr('id').replace('resource_', '');
   current_resource_list_item.find('input:hidden:first').val(resource_id);
   
   current_resource_list_item.attr('id', 'resource_' + resource_id).removeClass('page_resource_empty');
-
-  $("p").text($(resource).attr('html')).appendTo(current_resource_list_item);
+  // current_resource_list_item.text($(resource).attr('html'));
+  
+  $("<p>").text($(resource).attr('html')).appendTo(current_resource_list_item);
+  current_resource_list_item.toggle();
 
   new_resource_list_item.appendTo($('#page_resources'));
-  // debugger
+
   reset_resource_functionality();
   close_dialog(e);
 }
 
-reindex_resources = function() {
-  $('#page_resources li textarea:hidden').each(function(i, input){
+reindex_resources = function () {
+  $('#page_resources li textarea:hidden').each(function (i, input) {
     // make the image's name consistent with its position.
     resource_parts = $(input).attr('name').split('_');
     resource_parts[2] = ('' + i);
@@ -99,8 +99,8 @@ reindex_resources = function() {
     $(input).attr('id', $(input).attr('id').replace(/_\d/, '_' + i));
     $(input).attr('data-old-id', $(input).attr('data-old-id').replace(/_\d_/, '_'+i+'_').replace(/_\d/, '_' + i));
   });
-  $('#page_resources li').each(function(i, li){
-    $('input:hidden', li).each(function() {
+  $('#page_resources li').each(function (i, li) {
+    $('input:hidden', li).each(function () {
       // make the image's name consistent with its position.
       resource_parts = $(this).attr('name').split(']');
       resource_parts[1] = ('[' + i);

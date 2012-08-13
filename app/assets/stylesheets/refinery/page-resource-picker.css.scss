@@ -3,25 +3,29 @@
   padding: 0;
   width: 280px;
   width: 100%;
+
   li {
     position: relative;
     list-style: none;
-    // float: left;
-    margin: 10px 20px 20px 0;
-    // width: 115px;
-    // height: 105px;
+    
+    margin: 7px 20px 5px 0;
+
     padding: 12px 10px 10px 10px;
     background: #41403C;
     color: white;
+
     * {
       cursor: move;
     }
+
     &.page_resource_empty {
       background:transparent;
     }
+
     &.odd {
       margin-right: 18px;
     }
+
     .resource_actions {
       background: white;
       position: absolute;
@@ -29,13 +33,17 @@
       left: 0;
       top: 0;
       width: 20px;
+
       * {
         cursor: pointer;
       }
+
       &.no_captions {
         background: transparent;
       }
+
     }
+
     p {
       color: white;
     }
@@ -48,18 +56,22 @@
 }
 
 #content {
+
   ul#page_resources.ui-sortable li {
     border: 0;
     //background: none !important;
     background: #41403C !important;
 
     &.page_resource_empty {
+      // display: none;
       background: transparent !important;
     }
   }
   #page_resources.ui-sortable li.placeholder {
-    width: 135px;
-    height: 135px;
+    // width: 135px;
+    width: 95%;
+    // height: 135px;
+    height: 16px;
   }
 }
 
